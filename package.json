@@ -1,0 +1,32 @@
+{
+  "name": "ranger-facility-manager",
+  "version": "1.0.0",
+  "description": "Ranger Facility Manager is a multi-role facility operations system where Rangers can report issues, Admins assign engineers, and Engineers resolve tasks. It tracks malfunctions, SLA timers, comments, and status updates, providing a centralized hub to manage and monitor Command Center operations.",
+  "homepage": "https://github.com/Shikharyadav04/Ranger-Facility-Manager#readme",
+  "bugs": {
+    "url": "https://github.com/Shikharyadav04/Ranger-Facility-Manager/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shikharyadav04/Ranger-Facility-Manager.git"
+  },
+  "license": "ISC",
+  "author": "shikhar",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "nodemon backend/server.js"
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^9.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11"
+  }
+}
