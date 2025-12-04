@@ -64,3 +64,59 @@ export const getAll_request = async(req,res)=>{
     }
 }
 
+export const getLow_priority = async(req , res )=>{
+       try{
+            const easyRequests = await Request.find({ priority: "Low" });
+            return res.status(200).json({
+                success: true,
+                count: easyRequests.length,
+                data: easyRequests
+            });
+       }
+       catch(err){
+             console.log("Get Easy Request Error:", err.message);
+    
+            return res.status(500).json({
+            success: false,
+            error: "Internal Server Error"
+            });
+       }
+}
+
+export const getMedium_priority = async(req , res )=>{
+       try{
+            const mediumRequests = await Request.find({ priority: "Medium" });
+            return res.status(200).json({
+                success: true,
+                count: mediumRequests.length,
+                data: mediumRequests
+            });
+       }
+       catch(err){
+             console.log("Get Medium Request Error:", err.message);
+    
+            return res.status(500).json({
+            success: false,
+            error: "Internal Server Error"
+            });
+       }
+}
+
+export const getHigh_priority = async(req , res )=>{
+       try{
+            const highRequests = await Request.find({ priority: "High" });
+            return res.status(200).json({
+                success: true,
+                count: highRequests.length,
+                data: highRequests
+            });
+       }
+       catch(err){
+             console.log("Get Hard Request Error:", err.message);
+    
+            return res.status(500).json({
+            success: false,
+            error: "Internal Server Error"
+            });
+       }
+}
