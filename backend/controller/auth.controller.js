@@ -7,9 +7,9 @@ export const register = async (req,res) => {
     if( !password || !username || !fullName || !email || !role) {
         return res.status(400).json({error : "Invalid Data : Please Provide All Fields"})
     }
-    if(password != conformPassword){
-        return res.status(400).json({error : "Password does not match"})
-    }
+    // if(password != conformPassword){
+    //     return res.status(400).json({error : "Password does not match"})
+    // }
     const existingUser = await User.findOne({
         $or : [{username:  username} , {email : email}]
     })

@@ -5,6 +5,9 @@ import authRoutes from "./routes/auth.routes.js"
 import { connectDb } from "./database/connectDb.js";
 import cookieParser from "cookie-parser";
 import reqRouter from "./routes/req.routes.js";
+import feedbackRouter from "./routes/feedback.routes.js";
+
+
 
 configDotenv()
 
@@ -21,6 +24,7 @@ app.use(express.json())
 app.use(cookieParser())
 app.use(express.urlencoded({extended : true}))
 
+app.use("/api/feedback", feedbackRouter);
 app.use("/api/auth",authRoutes)
 app.use("/api/problem" , reqRouter );
 
