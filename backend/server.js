@@ -4,6 +4,7 @@ import { configDotenv } from "dotenv";
 import authRoutes from "./routes/auth.routes.js"
 import { connectDb } from "./database/connectDb.js";
 import cookieParser from "cookie-parser";
+import reqRouter from "./routes/req.routes.js";
 
 configDotenv()
 
@@ -21,6 +22,7 @@ app.use(cookieParser())
 app.use(express.urlencoded({extended : true}))
 
 app.use("/api/auth",authRoutes)
+app.use("/api/problem" , reqRouter );
 
 app.listen(PORT , () => {
     connectDb();
