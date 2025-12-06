@@ -1,6 +1,8 @@
 import { User } from "../models/user.model.js"
 import bcrypt from "bcrypt"
-export const register = async (req,res) => {
+import jwt from 'jsonwebtoken';
+
+const register = async (req,res) => {
     try {
         const {username , email , password ,conformPassword , fullName , role} = req.body
 
@@ -56,3 +58,31 @@ export const register = async (req,res) => {
 
 
 }
+
+const login = async (req, res) => {
+    try{
+        const {email, password} = req.body;
+        const user = await User.findOne({email});
+        if(!user){
+            return res.status(404).json({success: false, error:"User not found"});
+        }
+        const isMatch = await bcrypt.compare(password, user.password);
+        if(!isMatch){
+            return res.status(404).json({success:false, error:"Email or password is wrong"});
+        }
+
+        const token = jwt.sign({_id: user._id, role: user.role}, 
+            process.env.JWT_KEY , {expiresIn: "10d"}
+        );
+        return res.status(200).json({success: true, token, user: {_id:user._id, username:user.username ,fullName:user.fullName, role: user.role, avatar:user.avatar},
+        });
+    } catch(error){
+        return res.status(500).json({success: false, error: error.message})
+    }
+}
+
+//for middleware
+const verify = (req, res) => {
+    return res.status(200).json({success: true, user: req.user});
+}
+export {login, register, verify};
