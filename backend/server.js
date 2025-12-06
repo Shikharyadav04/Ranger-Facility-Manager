@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import reqRouter from "./routes/req.routes.js";
 
 //admin user seed
 import { userRegister } from "./userSeed.js";
@@ -27,6 +28,11 @@ app.use(
   })
 );
 
+<<<<<<< HEAD
+=======
+app.use("/api/auth",authRoutes)
+app.use("/api/problem" , reqRouter );
+>>>>>>> e05b904ee76b0567234e8489c95dc78fe5185d0a
 
 app.get("/", (req, res) => {
   res.send("Facility Ops Backend Running 🚀");
