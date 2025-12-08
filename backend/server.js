@@ -1,30 +1,55 @@
-
 import express from "express";
-import { configDotenv } from "dotenv";
-import authRoutes from "./routes/auth.routes.js"
-import { connectDb } from "./database/connectDb.js";
+import dotenv from "dotenv";
+import cors from "cors";
 import cookieParser from "cookie-parser";
 import reqRouter from "./routes/req.routes.js";
 
-configDotenv()
+//admin user seed
+import { userRegister } from "./userSeed.js";
 
-const app = express() ;
-const PORT = process.env.PORT || 5000; 
-
-
-app.get("/" , (req,res) => {
-    res.send("Hello")
-})
+import authRoutes from "./routes/auth.routes.js";
+import { connectDb } from "./database/connectDb.js";
 
 
-app.use(express.json())
-app.use(cookieParser())
-app.use(express.urlencoded({extended : true}))
+dotenv.config();
+
+const app = express();
+const PORT = process.env.PORT || 5000;
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+
+
+app.use(
+  cors({
+    origin: "*", // later to frontend domain
+    credentials: true,
+  })
+);
+
+
 
 app.use("/api/auth",authRoutes)
-app.use("/api/problem" , reqRouter );
+app.use("/api/request" , reqRouter );
 
-app.listen(PORT , () => {
-    connectDb();
-    console.log(`Server running on ${PORT}`)
-}) 
+
+app.get("/", (req, res) => {
+  res.send("Facility Ops Backend Running 🚀");
+});
+
+app.use("/api/auth", authRoutes);
+
+
+connectDb()
+  .then(async () => {
+
+    await userRegister();
+
+    app.listen(PORT, () =>
+      console.log(`🚀 Server running on port ${PORT}`)
+    );
+  })
+  .catch((err) => {
+    console.log("❌ Database connection failed:", err);
+  });

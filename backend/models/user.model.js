@@ -1,15 +1,7 @@
 import mongoose, { Schema } from "mongoose";
 
-
+//base model -> Admin
 const userSchema = new Schema( {
-    username : {
-        type : String,
-        required : true,
-        unique : true,
-        lowercase : true,
-        trim :true,
-        index:true
-    },
     email : {
         type : String,
         required : true,

@@ -20,7 +20,7 @@ const requestSchema = new Schema({
     priority : {type: String, required : true , enum :["Low" , "Medium" , "High"]},
     assigned_engineering_id : {type : mongoose.Schema.Types.ObjectId , ref : "User"},
     location : { type : String , required : true , trim :true},
-    engineering_domain : {type: String, required : true , enum : ["civil" , "mechanical", "electrical" , "computer Science" , "electronics" , "chemical" , "biotech" ]},
+    engineering_domain : {type: String, required : true , enum : ["undefined","civil" , "mechanical", "electrical" , "computer Science" , "electronics" , "chemical" , "biotech" ]},
     target_date : {type : Date},
 
 } ,  { timestamps : true });
