@@ -5,9 +5,9 @@ export const generate_request = async(req,res)=>{
     
     try{
 
-        const {ranger_id , title , description , curr_status , priority , location , engineering_domain , target_date } = req.body;
+        const {ranger_id , title , description , priority , location , target_date } = req.body;
         
-        if(!ranger_id || !title || !description || !curr_status || !priority || !location || !engineering_domain){
+        if(!ranger_id || !title || !description  || !priority || !location ){
             return res.status(400).json({error : "Invalid Data : Please Provide All Fields"});
         }
             
@@ -15,11 +15,11 @@ export const generate_request = async(req,res)=>{
             ranger_id : ranger_id ,
             title : title,
             description : description,
-            curr_status : curr_status,
+            curr_status : "Open",
             priority : priority,
             assigned_engineering_id : null,
             location : location ,
-            engineering_domain : engineering_domain,
+            engineering_domain : "undefined",
             target_date : target_date,
         })
 

@@ -1,6 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 
-
+//base model -> Admin
 const userSchema = new Schema( {
     email : {
         type : String,

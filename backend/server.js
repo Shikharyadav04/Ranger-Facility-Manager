@@ -28,11 +28,11 @@ app.use(
   })
 );
 
-<<<<<<< HEAD
-=======
+
+
 app.use("/api/auth",authRoutes)
-app.use("/api/problem" , reqRouter );
->>>>>>> e05b904ee76b0567234e8489c95dc78fe5185d0a
+app.use("/api/request" , reqRouter );
+
 
 app.get("/", (req, res) => {
   res.send("Facility Ops Backend Running 🚀");

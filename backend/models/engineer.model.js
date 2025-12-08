@@ -1,6 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 
-const rangerSchema = new Schema(
+const engineerSchema = new Schema(
   {
     userId: {
       type: Schema.Types.ObjectId,
@@ -9,17 +9,18 @@ const rangerSchema = new Schema(
       unique: true,
     },
 
-    phoneNumber: {
+    department: {
       type: String,
+      required: true,
       trim: true,
     },
 
-    location: {
-      type: String,
-      trim: true,
+    isAvailable: {
+      type: Boolean,
+      default: true,
     },
 
-    complaints: [
+    assignedComplaints: [
       {
         type: Schema.Types.ObjectId,
         ref: "Complaint",
@@ -29,5 +30,5 @@ const rangerSchema = new Schema(
   { timestamps: true }
 );
 
-const Ranger = mongoose.model("Ranger", rangerSchema);
-export { Ranger };
+const Engineer = mongoose.model("Engineer", engineerSchema);
+export { Engineer };
