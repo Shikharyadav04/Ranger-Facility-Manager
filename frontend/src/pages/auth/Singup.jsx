@@ -34,21 +34,22 @@ const Signup = () => {
             setLoading(true);
 
             const response = await axios.post(
-                `${import.meta.env.VITE_BACKEND_URL}/api/auth/ranger/register`,
+                `${import.meta.env.VITE_BACKEND_URL}/api/auth/register`,
                 {
                     fullName,
                     email,
                     phoneNumber: countryCode + phoneNumber,
                     location,
                     password,
+                    confirmPassword,
                 }
             );
-
+            console.log(response);
             if (response.data.success) {
                 login(response.data.user);
                 localStorage.setItem("token", response.data.token);
 
-                toast.success(`Account created! Welcome, ${user.fullName}! 🎉`);
+                toast.success(`Account created! Welcome, ${response.data.user.fullName}! 🎉`);
                 navigate('/ranger/dashboard');
             }
         } catch (error) {

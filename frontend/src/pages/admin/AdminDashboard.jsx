@@ -1,7 +1,7 @@
 
 import { Outlet } from "react-router-dom";
-import Navbar from "../../components/dashboard/Navbar";
-import AdminSidebar from "../../components/dashboard/AdminSidebar";
+import Navbar from "../../components/Navbar";
+import AdminSidebar from "../../components/admin/AdminSidebar";
 
 const AdminDashboard = () => {
 

@@ -9,6 +9,7 @@ import { useAuth } from './context/authContext';
 import AdminDashboard from './pages/admin/AdminDashboard';
 import EngineerDashboard from './pages/engineer/EngineerDashBoard';
 import RangerDashboard from './pages/ranger/RangerDashboard';
+import AdminOverview from './components/admin/AdminOverwiew';
 
 
 function App() {
@@ -42,6 +43,7 @@ function App() {
           </PrivateRoutes>
         }>
           {/* ALL ROUTEs OF /admin/dashboard/?? */}
+          <Route index element={<AdminOverview />}></Route>
         </Route>
 
 

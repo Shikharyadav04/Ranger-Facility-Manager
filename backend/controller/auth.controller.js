@@ -1,31 +1,28 @@
-import { User } from "../models/user.model.js"
+import { User } from "../models/user.model.js";
+import {Ranger} from '../models/ranger.model.js';
 import bcrypt from "bcrypt"
 import jwt from 'jsonwebtoken';
 
 const register = async (req,res) => {
     try {
-        const {username , email , password ,conformPassword , fullName} = req.body
+        const {fullName, email , phoneNumber, location, password ,confirmPassword} = req.body
 
-    if( !password || !username || !fullName || !email || !role) {
+    if( !password || !phoneNumber || !fullName || !email) {
         return res.status(400).json({error : "Invalid Data : Please Provide All Fields"})
     }
-    if(password != conformPassword){
+    if(password != confirmPassword){
         return res.status(400).json({error : "Password does not match"})
     }
-    const existingUser = await User.findOne({
-        $or : [{username:  username} , {email : email}]
-    })
+    const existingUser = await User.findOne({email : email});
 
     if(existingUser) {
         return res.status(400).json({error : "User already exist"})
     }
 
-    const avatar =  "https://robohash.org/PowerRanger.png" 
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password , salt)
+    const avatar =  "https://robohash.org/PowerRanger.png";
+    const hashedPassword = await bcrypt.hash(password , 10);
     
     const newUser = await User.create({
-        username : username,
         email : email,
         role : "ranger",
         fullName : fullName,
@@ -33,21 +30,29 @@ const register = async (req,res) => {
         avatar : avatar
     })
 
-    if(newUser) {
-        await newUser.save()
-        return res.status(200).json({
-            user : {
-            id: newUser._id ,
-            fullName : newUser.fullName,
-            username : newUser.username,
-            email : newUser.email
-            } ,
-            message : "User Registered Successfully"
-        })
-    }else return res.status(400).json({error : "Invalid user data !!"})
-    
+    const rangerProfile = await Ranger.create({
+      userId: newUser._id,
+      phoneNumber,
+      location
+    });
 
-    
+    console.log(rangerProfile);
+    const token = jwt.sign({_id: newUser._id, role: newUser.role}, 
+            process.env.JWT_KEY , {expiresIn: "10d"}
+    );
+
+    return res.status(201).json({
+      success: true,
+      token,
+      user: {
+        _id: newUser._id,
+        fullName: newUser.fullName,
+        email: newUser.email,
+        role: newUser.role,
+        avatar: newUser.avatar,
+      },
+      ranger: rangerProfile
+    });
         
     } catch (error) {
         console.log("Register Controller Error :  ",error.message) ;
@@ -74,7 +79,7 @@ const login = async (req, res) => {
         const token = jwt.sign({_id: user._id, role: user.role}, 
             process.env.JWT_KEY , {expiresIn: "10d"}
         );
-        return res.status(200).json({success: true, token, user: {_id:user._id, username:user.username ,fullName:user.fullName, role: user.role, avatar:user.avatar},
+        return res.status(200).json({success: true, token, user: {_id:user._id, fullName:user.fullName, email: user.email, role: user.role, avatar:user.avatar},
         });
     } catch(error){
         return res.status(500).json({success: false, error: error.message})

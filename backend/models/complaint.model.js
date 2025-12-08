@@ -13,6 +13,11 @@ const complaintSchema = new Schema(
       required: true,
     },
 
+    location: {
+      type: String,
+      required: true,
+    },
+
     priority: {
       type: String,
       enum: ["low", "medium", "high", "critical"],

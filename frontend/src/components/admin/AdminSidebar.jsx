@@ -16,7 +16,7 @@ const AdminSidebar = () => {
       <nav className="flex flex-col gap-3">
 
         <NavItem
-          to="/admin/dashboard/overview"
+          to="/admin/dashboard"
           label="Overview"
           icon={<FiHome size={20} />}
         />

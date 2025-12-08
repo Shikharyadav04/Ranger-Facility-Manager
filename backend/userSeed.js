@@ -15,7 +15,6 @@ const userRegister = async () => {
     const avatar =  "https://geekculture.co/wp-content/uploads/2019/02/bumblebee-officially-reboots-transformers-movie-franchise-e1550454744488.jpg";
     const hashedPassword = await bcrypt.hash("admin", 10);
     const newUser = await User.create({
-        username : "sumitp0808",
         email : "sumitp0808@gmail.com",
         role : "admin",
         fullName : "Sumit Prajapati",
